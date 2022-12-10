@@ -1,4 +1,3 @@
-
 class PyChatGPTException(Exception):
     def __init__(self, message):
         self.message = message
@@ -12,4 +11,3 @@ class Auth0Exception(PyChatGPTException):
 class IPAddressRateLimitException(PyChatGPTException):
     def __init__(self, message):
         self.message = message
-

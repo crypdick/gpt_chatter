@@ -10,6 +10,7 @@ import tkinter as tk
 
 from gui import ChatbotGUI
 
+
 def main():
     """
     In this `main` function, we create a new `Tk` object, which represents the main window of our GUI.
@@ -29,10 +30,11 @@ def main():
     try:
         root.mainloop()
     except KeyboardInterrupt:
-        print('KeyboardInterrupt: closing chatbot session')
+        print("KeyboardInterrupt: closing chatbot session")
         gui.close()
-        print('Closing root')
+        print("Closing root")
         root.destroy()
+
 
 if __name__ == "__main__":
     main()

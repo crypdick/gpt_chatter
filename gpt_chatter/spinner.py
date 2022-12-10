@@ -1,15 +1,26 @@
 # Thanks: @Dorcioman
 
-from itertools import cycle
 import threading
 import time
+from itertools import cycle
 
 
 class Spinner:
-    __default_spinner_symbols_list = ['|-----|', '|#----|', '|-#---|', '|--#--|', '|---#-|', '|----#|']
+    __default_spinner_symbols_list = [
+        "|-----|",
+        "|#----|",
+        "|-#---|",
+        "|--#--|",
+        "|---#-|",
+        "|----#|",
+    ]
 
     def __init__(self, spinner_symbols_list: [str] = None):
-        spinner_symbols_list = spinner_symbols_list if spinner_symbols_list else Spinner.__default_spinner_symbols_list
+        spinner_symbols_list = (
+            spinner_symbols_list
+            if spinner_symbols_list
+            else Spinner.__default_spinner_symbols_list
+        )
         self.__screen_lock = threading.Event()
         self.__spinner = cycle(spinner_symbols_list)
         self.__stop_event = False
@@ -24,12 +35,14 @@ class Spinner:
 
         def run_spinner(message):
             while not self.__stop_event:
-                print("\r{message} {spinner}".format(message=message, spinner=next(self.__spinner)), end="")
+                print(f"\r{message} {next(self.__spinner)}", end="")
                 time.sleep(0.3)
 
             self.__screen_lock.set()
 
-        self.__thread = threading.Thread(target=run_spinner, args=(spinner_message,), daemon=True)
+        self.__thread = threading.Thread(
+            target=run_spinner, args=(spinner_message,), daemon=True
+        )
         self.__thread.start()
 
     def stop(self):

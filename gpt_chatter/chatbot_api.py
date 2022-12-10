@@ -3,11 +3,8 @@ contains the code for connecting to and interacting with the chatbot API. This f
 """
 
 
-
-import time
 import os
-
-
+import time
 
 import colorama
 from colorama import Fore
@@ -15,10 +12,11 @@ from dotenv import load_dotenv
 
 from gpt_chatter.chat_handler import ask
 from gpt_chatter.exceptions import PyChatGPTException
-from gpt_chatter.openai import token_expired, get_access_token, Auth
+from gpt_chatter.openai import Auth, get_access_token, token_expired
 from gpt_chatter.spinner import Spinner
 
 colorama.init(autoreset=True)
+
 
 class ChatbotAPI:
     def __init__(self, proxies: str or dict = None):
@@ -43,9 +41,12 @@ class ChatbotAPI:
                     self.proxies = {"http": self.proxies, "https": self.proxies}
 
         if not self.email or not self.password:
-            print(f"{Fore.RED}>> You must provide an email and password when initializing the class.")
+            print(
+                f"{Fore.RED}>> You must provide an email and password when initializing the class."
+            )
             raise PyChatGPTException(
-                f"You must provide an email and password when initializing the class, got email {self.email} and password {self.password}.")
+                f"You must provide an email and password when initializing the class, got email {self.email} and password {self.password}."
+            )
 
         if not isinstance(self.email, str) or not isinstance(self.password, str):
             print(f"{Fore.RED}>> Email and password must be strings.")
@@ -57,8 +58,10 @@ class ChatbotAPI:
 
         # Check for access_token & access_token_expiry in env
         if token_expired():
-            print(f"{Fore.RED}>> Access Token missing or expired."
-                  f" {Fore.GREEN}Attempting to create them...")
+            print(
+                f"{Fore.RED}>> Access Token missing or expired."
+                f" {Fore.GREEN}Attempting to create them..."
+            )
             self._create_access_token()
         else:
             access_token, expiry = get_access_token()
@@ -72,11 +75,15 @@ class ChatbotAPI:
                 raise PyChatGPTException("Expiry is not an integer.")
 
             if self.__auth_access_token_expiry < time.time():
-                print(f"{Fore.RED}>> Your access token is expired. {Fore.GREEN}Attempting to recreate it...")
+                print(
+                    f"{Fore.RED}>> Your access token is expired. {Fore.GREEN}Attempting to recreate it..."
+                )
                 self._create_access_token()
 
     def _create_access_token(self) -> bool:
-        openai_auth = Auth(email_address=self.email, password=self.password, proxy=self.proxies)
+        openai_auth = Auth(
+            email_address=self.email, password=self.password, proxy=self.proxies
+        )
         openai_auth.create_token()
 
         # If after creating the token, it's still expired, then something went wrong.
@@ -123,7 +130,9 @@ class ChatbotAPI:
     def _get_access_token(self):
         # Check if the access token is expired
         if token_expired():
-            print(f"{Fore.RED}>> Your access token is expired. {Fore.GREEN}Attempting to recreate it...")
+            print(
+                f"{Fore.RED}>> Your access token is expired. {Fore.GREEN}Attempting to recreate it..."
+            )
             did_create = self._create_access_token()
             if did_create:
                 print(f"{Fore.GREEN}>> Successfully recreated access token.")
@@ -173,14 +182,15 @@ class ChatbotAPI:
     def send_message(self, msg):
         access_token = self._get_access_token()
 
-
         spinner = Spinner()
         spinner.start(Fore.YELLOW + "Chat GPT is typing...")
-        answer, previous_convo, convo_id = ask(auth_token=access_token,
-                                               prompt=msg,
-                                               conversation_id=self.__conversation_id,
-                                               previous_convo_id=self.__previous_convo_id,
-                                               proxies=self.proxies)
+        answer, previous_convo, convo_id = ask(
+            auth_token=access_token,
+            prompt=msg,
+            conversation_id=self.__conversation_id,
+            previous_convo_id=self.__previous_convo_id,
+            proxies=self.proxies,
+        )
         if answer == "400" or answer == "401":
             print(f"{Fore.RED}>> Failed to get a response from the API.")
             return None
@@ -193,9 +203,6 @@ class ChatbotAPI:
         print(f"Chat GPT: {answer}")
 
         return answer
-
-
-
 
 
 # class ChatbotAPI:
