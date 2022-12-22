@@ -67,7 +67,7 @@ class ChatbotGUI:
 
     def send_message(self, event):
         # check if the chat session is saved, and if not, open a file and save if
-        with open(self.save_fname, "w+") as f:
+        with open(self.save_fname, "a+") as f:
 
             # Get the message from the text entry
             prompt = self.input_box.get("1.0", tk.END)
@@ -96,6 +96,7 @@ class ChatbotGUI:
             # Add the response to the message display
             # tag as html to correctly render
             self.chat_history.insert("end", response)
+            self.chat_history.insert("end", "\n------------\n")
             f.write(response)
             f.write("--\n")
             # self.chat_history.tag_add("html", "1.0", tk.END)
