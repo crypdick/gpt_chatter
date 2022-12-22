@@ -619,3 +619,4 @@ MigrationBackup/
 
 */auth.json
 *__chatGPT.md
+*.env
