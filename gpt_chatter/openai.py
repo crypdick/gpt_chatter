@@ -139,7 +139,7 @@ class Auth:
             self._part_two()
         else:
             raise Exceptions.Auth0Exception(
-                "Failed to make the first request, Try that again!"
+                f"Failed to make the first request, Try that again! Status code: {response.status_code}"
             )
 
     def _part_two(self):
