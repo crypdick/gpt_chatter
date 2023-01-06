@@ -663,7 +663,7 @@ python-versions = "*"
 
 [[package]]
 name = "tls-client"
-version = "0.1.5"
+version = "0.1.8"
 description = "Advanced Python HTTP Client."
 category = "main"
 optional = false
@@ -782,7 +782,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "b55b260964e83215b6595fc6d2a7511b51387a7bc9179b8d23926f6aabdfa61c"
+content-hash = "b6a3d4b2806a4160d6b3ec1ace54d58b3e7dcf5c02875021e784a76e90ee6bb1"
 
 [metadata.files]
 astroid = [
@@ -1139,7 +1139,8 @@ tk = [
     {file = "tk-0.1.0.tar.gz", hash = "sha256:60bc8923d5d35f67f5c6bd93d4f0c49d2048114ec077768f959aef36d4ed97f8"},
 ]
 tls-client = [
-    {file = "tls_client-0.1.5-py3-none-any.whl", hash = "sha256:cd65d7b1405cd2075050fca4e59abc6e04207b29ea47eabc6f406ce16735421f"},
+    {file = "tls_client-0.1.8-py3-none-any.whl", hash = "sha256:3c0022997b2ca4e9d7907ac2a2265dae65961f497cc69702784a15f736178311"},
+    {file = "tls_client-0.1.8.tar.gz", hash = "sha256:38b2ead2a04dd0c88ac9ce9a47dd72f48a4b03d9180804c389cba887e91494ef"},
 ]
 tokenize-rt = [
     {file = "tokenize_rt-4.2.1-py2.py3-none-any.whl", hash = "sha256:08a27fa032a81cf45e8858d0ac706004fcd523e8463415ddf1442be38e204ea8"},
